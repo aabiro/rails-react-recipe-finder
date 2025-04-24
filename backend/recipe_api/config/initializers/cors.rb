@@ -10,7 +10,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     # Add the URL of your deployed React app here
-    origins 'http://localhost:3000', 'https://rails-react-recipe-finder-frontend.onrender.com/'
+    origins 'http://localhost:3000', 'https://rails-react-recipe-finder.onrender.com/api/v1/recipes'
 
     resource '*',
       headers: :any,

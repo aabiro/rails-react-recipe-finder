@@ -19,10 +19,9 @@ function App() {
   // --- Fetch Recipes Function ---
   const fetchRecipes = useCallback(
     async (query = "") => {
+      // console.log("Starting fetch..."); // Debugging log
       setIsLoading(true); // Start loading
       setError(null); // Clear previous errors
-      // Don't clear selected recipe here, allow modal to stay open if user searches while viewing
-      // setSelectedRecipe(null);
       let url = API_URL;
       if (query) {
         // Append search query parameter if present
@@ -30,19 +29,44 @@ function App() {
       }
 
       try {
-        const response = await fetch(url);
+        const response = await fetch(url); // Standard GET request
+        // console.log("Fetch response status:", response.status); // Debugging log
+
+        // Check for non-OK responses (like 404, 500)
         if (!response.ok) {
-          // Handle HTTP errors (e.g., 404, 500)
-          throw new Error(`HTTP error! status: ${response.status}`);
+          // Try to get more specific error info if possible
+          let errorMsg = `HTTP error! status: ${response.status} - ${response.statusText}`;
+          try {
+            const errorData = await response.text();
+            console.error("API Error Response Body:", errorData);
+            // You might parse errorData if it's JSON, e.g., JSON.parse(errorData).message
+          } catch (parseError) {
+            // Ignore error if response body couldn't be read/parsed
+          }
+          throw new Error(errorMsg);
         }
-        const data = await response.json();
-        setRecipes(data); // Update recipes state
+
+        // --- FIX: Handle 204 No Content explicitly ---
+        if (response.status === 204) {
+          // console.log("Received 204 No Content"); // Debugging log
+          setRecipes([]); // Set recipes to empty array if no content
+        } else {
+          // Only attempt to parse JSON if there's content (status is likely 200 OK)
+          // console.log("Attempting to parse JSON..."); // Debugging log
+          const data = await response.json();
+          // console.log("Received data:", data); // Debugging log
+          setRecipes(data); // Update recipes state
+        }
+        // --- End Fix ---
       } catch (e) {
+        // This catch block handles network errors or errors thrown above
         console.error("Failed to fetch recipes:", e);
         setError(`Failed to load recipes. ${e.message}`); // Set error message
         setRecipes([]); // Clear recipes on error
       } finally {
-        setIsLoading(false); // Stop loading regardless of success or failure
+        // This block ALWAYS runs after try or catch finishes
+        // console.log("Setting isLoading to false"); // Debugging log
+        setIsLoading(false); // Stop loading
       }
     },
     [API_URL]

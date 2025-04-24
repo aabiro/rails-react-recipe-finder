@@ -13,7 +13,9 @@ function App() {
   // --- API URL ---
   // Make sure this matches the port your Rails API is running on
   //
-  const API_URL = "https://rails-react-recipe-finder.onrender.com/";
+  // src/App.js
+  const API_URL =
+    process.env.REACT_APP_API_URL || "http://localhost:3001/api/v1/recipes";
   // --- Fetch Recipes Function ---
   const fetchRecipes = useCallback(
     async (query = "") => {

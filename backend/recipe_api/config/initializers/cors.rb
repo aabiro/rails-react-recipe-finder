@@ -6,9 +6,11 @@
 # Read more: https://github.com/cyu/rack-cors
 
 # config/initializers/cors.rb
+# config/initializers/cors.rb (in Rails project)
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000' # React app's address
+    # Add the URL of your deployed React app here
+    origins 'http://localhost:3000', 'https://rails-react-recipe-finder-frontend.onrender.com/'
 
     resource '*',
       headers: :any,

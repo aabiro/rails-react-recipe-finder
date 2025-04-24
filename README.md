@@ -1,5 +1,3 @@
-## rails-react-recipe-finder
-
 # Recipe Finder API Documentation
 
 This document describes the API endpoints for the Recipe Finder application.Base URL:The base URL for the deployed API is assumed to be: https://rails-react-recipe-finder.onrender.com/ (Replace with your actual deployed URL if different). All endpoint paths below are relative to this base URL.Endpoints1. List RecipesFetches a list of recipes. Can optionally be filtered by a search term applied to the recipe title or ingredients.Method: GETPath: /api/v1/recipesQuery Parameters:search (string, optional): A search term to filter recipes. The search is case-insensitive and matches against recipe titles and ingredients.Success Response (200 OK):Returns a JSON array of recipe objects matching the search criteria (or all recipes if no search term is provided).Example Body (All Recipes):[
@@ -8,7 +6,7 @@ This document describes the API endpoints for the Recipe Finder application.Base
     "title": "Chicken Parmesan",
     "ingredients": "Chicken, Tomato Sauce, Cheese, Pasta",
     "instructions": "Bread chicken, fry, top with sauce and cheese, bake. Serve over pasta.",
-    "image_url": "https://placehold.co/600x400/f4a261/ffffff?text=Chicken+Parm",
+    "image_url": "[https://placehold.co/600x400/f4a261/ffffff?text=Chicken+Parm](https://placehold.co/600x400/f4a261/ffffff?text=Chicken+Parm)",
     "created_at": "2025-04-24T14:15:00.000Z",
     "updated_at": "2025-04-24T14:15:00.000Z"
   },
@@ -17,7 +15,7 @@ This document describes the API endpoints for the Recipe Finder application.Base
     "title": "Roasted Potatoes",
     "ingredients": "Potato, Olive Oil, Rosemary, Salt, Pepper",
     "instructions": "Cut potatoes, toss with oil and seasonings, roast until golden brown.",
-    "image_url": "https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes",
+    "image_url": "[https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes](https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes)",
     "created_at": "2025-04-24T14:16:00.000Z",
     "updated_at": "2025-04-24T14:16:00.000Z"
   }
@@ -29,7 +27,7 @@ Example Body (Search for "potato"):[
     "title": "Roasted Potatoes",
     "ingredients": "Potato, Olive Oil, Rosemary, Salt, Pepper",
     "instructions": "Cut potatoes, toss with oil and seasonings, roast until golden brown.",
-    "image_url": "https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes",
+    "image_url": "[https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes](https://placehold.co/600x400/d4a373/ffffff?text=Roasted+Potatoes)",
     "created_at": "2025-04-24T14:16:00.000Z",
     "updated_at": "2025-04-24T14:16:00.000Z"
   }
@@ -40,6 +38,8 @@ Error Responses:500 Internal Server Error: Returned if there's an issue on the s
     "id": 1,
     "title": "Chicken Parmesan",
     // ... other fields ...
+    "created_at": "2025-04-24T14:15:00.000Z",
+    "updated_at": "2025-04-24T14:15:00.000Z"
   },
   // ... all other recipes
 ]
